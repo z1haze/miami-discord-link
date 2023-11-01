@@ -24,6 +24,6 @@ app
   .use(express.static(join(__dirname, '../client/public')))
   .use('/', require('./routers'));
 
-http.listen(process.env.APP_PORT, () => {
-  console.log(`App running on port http://localhost:${process.env.APP_PORT}`);
+http.listen(process.env.APP_PORT || 3000, () => {
+  console.log(`App running on port http://localhost:${process.env.APP_PORT || 3000}`);
 });

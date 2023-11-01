@@ -13,8 +13,6 @@ module.exports = async (req, res, next) => {
       grantType: 'authorization_code'
     });
 
-    console.log(data.access_token);
-
     const user = await discordOAuthClient.getUser(data.access_token);
 
     await discordOAuthClient.addMember({
