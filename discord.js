@@ -4,6 +4,6 @@ module.exports = {
   discordOAuthClient: new DiscordOauth2({
     clientId: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    redirectUri: process.env.VERCEL_URL + process.env.DISCORD_REDIRECT_URL
+    redirectUri: process.env.PROTOCOL + process.env.VERCEL_URL + process.env.DISCORD_REDIRECT_URL
   })
 };

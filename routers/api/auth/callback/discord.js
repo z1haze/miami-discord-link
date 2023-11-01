@@ -27,5 +27,5 @@ module.exports = async (req, res, next) => {
     console.error(err);
   }
 
-  res.redirect('/');
+  res.send("You've been successfully added to the discord!");
 };
