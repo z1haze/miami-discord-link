@@ -1,15 +1,17 @@
 const express = require('express');
 const {v4: uuidv4} = require('uuid');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
-const FileStore = require('session-file-store')(session);
 const app = express();
 
 app
   .set('view engine', 'ejs')
   .use(
     session({
-      store: new FileStore({}),
+      store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+      }),
       secret: process.env.COOKIE_SECRET,
       resave: false,
       saveUninitialized: true,
