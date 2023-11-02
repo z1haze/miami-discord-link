@@ -4,12 +4,13 @@ const {v4: uuidv4} = require('uuid');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
+const publicDir = join(__dirname, 'public');
 const app = express();
 
 app
-  .set('view engine', 'ejs')
   .set('views', join(__dirname, 'views'))
-  .use(express.static(__dirname + '/public'))
+  .set('view engine', 'ejs')
+  .use(express.static(publicDir))
   .use(
     session({
       store: MongoStore.create({
@@ -24,7 +25,25 @@ app
       name: 'muoh.sid'
     })
   )
-  .use(require('./middleware/auth').user)
-  .use('/', require('./routers'));
+  .use(require('./middleware/auth').user);
+
+if (process.env.NODE_ENV === 'development') {
+  const livereload = require('livereload');
+  const connectLiveReload = require('connect-livereload');
+
+  const liveReloadServer = livereload.createServer();
+
+  liveReloadServer.watch(publicDir);
+
+  liveReloadServer.server.once('connection', () => {
+    setTimeout(() => {
+      liveReloadServer.refresh('/');
+    }, 10);
+  });
+
+  app.use(connectLiveReload());
+}
+
+app.use('/', require('./routers'));
 
 module.exports = app;
