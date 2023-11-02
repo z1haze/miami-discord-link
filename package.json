@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "build": "tailwindcss -i ./styles.css -o ./public/styles.css",
-    "dev": "concurrently \"nodemon index.js\" \"tailwindcss -i ./styles.css -o ./public/styles.css -- watch\"",
-    "vercel-build": "echo hello"
+    "dev": "concurrently \"nodemon index.js\" \"tailwindcss -i ./styles.css -o ./public/styles.css -- watch\""
   },
   "keywords": [],
   "author": "",
