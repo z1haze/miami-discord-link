@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.use('/api', require('./api'));
 router.use('*', (req, res) => {
-  res.status(404).json({message: 'Not Found'});
+  res.render('pages/index');
 });
 
 module.exports = router;

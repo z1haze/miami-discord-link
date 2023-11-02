@@ -8,24 +8,26 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    const data = await discordOAuthClient.tokenRequest({
+    const {access_token} = await discordOAuthClient.tokenRequest({
       code,
       grantType: 'authorization_code'
     });
 
-    const user = await discordOAuthClient.getUser(data.access_token);
+    const user = await discordOAuthClient.getUser(access_token);
 
     await discordOAuthClient.addMember({
-      accessToken: data.access_token,
+      accessToken: access_token,
       botToken: process.env.DISCORD_BOT_TOKEN,
       guildId: process.env.DISCORD_GUILD_ID,
       userId: user.id,
       nickname: `${req.user.name} [${req.user.studentId}]`,
       roles: [process.env.DISCORD_VERIFIED_ROLE_ID]
     });
+
+    res.send("You've been successfully added to the discord!");
   } catch (err) {
     console.error(err);
-  }
 
-  res.send("You've been successfully added to the discord!");
+    res.redirect('/');
+  }
 };

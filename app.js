@@ -1,4 +1,5 @@
 const express = require('express');
+const {join} = require('path');
 const {v4: uuidv4} = require('uuid');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -7,6 +8,8 @@ const app = express();
 
 app
   .set('view engine', 'ejs')
+  .set('views', join(__dirname, 'views'))
+  .use(express.static(__dirname + '/public'))
   .use(
     session({
       store: MongoStore.create({
