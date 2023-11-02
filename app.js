@@ -8,8 +8,8 @@ const publicDir = join(__dirname, 'public');
 const app = express();
 
 app
-  .set('views', join(__dirname, 'views'))
   .set('view engine', 'ejs')
+  .set('views', join(__dirname, 'views'))
   .use(express.static(publicDir))
   .use(
     session({
