@@ -4,7 +4,7 @@ module.exports = {
       req.user = {
         email: req.session.email,
         name: req.session.name,
-        studentId: req.session.hd,
+        studentId: req.session.email.substring(0, req.session.email.indexOf('@')),
       }
     }
 
